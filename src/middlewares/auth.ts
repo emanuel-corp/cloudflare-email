@@ -15,7 +15,6 @@ const AuthMiddleware = async (request: Request, env: Env) => {
 
 		if (contentType.includes('application/json')) {
 			const body = await request.json() as {token?: string};
-			console.log(body);
 			token = body?.token || '';
 		}
 	}
