@@ -11,7 +11,7 @@ const AuthMiddleware = async (request: Request, env: Env) => {
 		const contentType = request.headers.get('Content-Type') || '';
 
 		if (contentType.includes('application/x-www-form-urlencoded')) {
-			const formData = await request.formData();
+			const formData = await request.clone().formData();
 			token = formData.get('token') || '';
 			referer = formData.get('referer') || '';
 		}
