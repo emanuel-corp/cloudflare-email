@@ -17,7 +17,7 @@ const AuthMiddleware = async (request: Request, env: Env) => {
 		}
 
 		if (contentType.includes('application/json')) {
-			const body = await request.json();
+			const body = await request.clone().json()
 			token = body?.token || '';
 			referer = body?.referer || '';
 		}
