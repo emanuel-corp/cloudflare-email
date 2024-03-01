@@ -10,8 +10,20 @@ export type EmailRequest = Request & {
  * @constructor
  */
 const EmailSchemaMiddleware = async (request: EmailRequest) => {
-	const content = await request.clone().json();
+	const contentType = request.headers.get('Content-Type') || '';
+	let content = {};
+
+	if (contentType.includes('application/json')) {
+		content = await request.clone().json();
+	} else if (contentType.includes('application/x-www-form-urlencoded')) {
+		const formData = await request.clone().formData();
+		for (const [key, value] of formData) {
+			content[key] = value;
+		}
+	}
+
 	const email = iEmailSchema.safeParse(content);
+
 	if (email.success) {
 		request.email = email.data;
 		return;
