@@ -14,10 +14,10 @@ router.post<EmailRequest>('/api/email', AuthMiddleware, EmailSchemaMiddleware, a
 		await Email.send(email);
 	} catch (e) {
 		console.error(`Error sending email: ${e}`);
-		return new Response('Internal Server Error', { status: 500 });
+		return Response.redirect('https://edtek.ai/fail', 302);
 	}
 
-	return new Response('OK', { status: 200 });
+	return Response.redirect('https://edtek.ai/success', 302);
 });
 
 router.all('*', (request) => new Response('Not Found', { status: 404 }));

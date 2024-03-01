@@ -17,9 +17,7 @@ const EmailSchemaMiddleware = async (request: EmailRequest) => {
 		return;
 	}
 
-	return new Response('Bad Request', {
-		status: 400,
-	});
+	return Response.redirect('https://edtek.ai/fail', 302);
 };
 
 export default EmailSchemaMiddleware;
